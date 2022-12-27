@@ -1,0 +1,48 @@
+USE [Bridge351.POC]
+GO
+
+/****** Object:  Table [dbo].[country]    Script Date: 27/12/2022 03:22:14 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[country](
+	[countryID] [int] IDENTITY(1,1) NOT NULL,
+	[countryName] [varchar](50) NULL,
+ CONSTRAINT [PK_country] PRIMARY KEY CLUSTERED 
+(
+	[countryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+USE [Bridge351.POC]
+GO
+
+/****** Object:  Table [dbo].[vatRates]    Script Date: 27/12/2022 03:22:58 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[vatRates](
+	[vatNumberId] [int] IDENTITY(1,1) NOT NULL,
+	[vatNumber] [decimal](5, 3) NOT NULL,
+	[countryId] [int] NOT NULL,
+ CONSTRAINT [PK_VatRates] PRIMARY KEY CLUSTERED 
+(
+	[vatNumberId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[vatRates]  WITH CHECK ADD  CONSTRAINT [FK_vatRates_country] FOREIGN KEY([countryId])
+REFERENCES [dbo].[country] ([countryID])
+GO
+
+ALTER TABLE [dbo].[vatRates] CHECK CONSTRAINT [FK_vatRates_country]
+GO
+
