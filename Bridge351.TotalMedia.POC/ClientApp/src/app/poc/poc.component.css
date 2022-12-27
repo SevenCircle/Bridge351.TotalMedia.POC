@@ -1,0 +1,11 @@
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.vat-value {
+  padding: 15px
+}

@@ -1,0 +1,51 @@
+<div>
+  Country:
+  <mat-form-field>
+    <mat-select
+      placeholder="Country"
+      [(ngModel)]="selectedCountry"
+      (ngModelChange)="onCountrySelection()"
+    >
+      <mat-option
+        *ngFor="let country of countries"
+        [value]="country.countryName"
+      >
+        {{ country.countryName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div *ngIf="selectedCountry">
+  VAT Rate:
+  <mat-radio-group [(ngModel)]="selectedVatRate" (ngModelChange)="onVatRateChange()">
+    <mat-radio-button *ngFor="let vat of vatRates" [value]="vat.vatNumber"
+      >{{ vat.vatNumber }}%</mat-radio-button
+    >
+  </mat-radio-group>
+</div>
+<label>{{Message}}</label>
+<div *ngIf="selectedVatRate">
+  <mat-radio-group
+    class="d-flex flex-column radio-group"
+    [(ngModel)]="PriceCat"
+  >
+    <div>
+      <mat-radio-button [value]=1> Price Without VATs </mat-radio-button>
+      <mat-form-field  class="vat-value">
+        <input [disabled]="PriceCat!=1" matInput [(ngModel)]="PriceWithoutTax" (ngModelChange)="OnPriceWithOutTaxChange()" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-radio-button [value]=2> Value Added Tax </mat-radio-button>
+      <mat-form-field class="vat-value">
+        <input [disabled]="PriceCat!=2" pattern="[0-9]{1,5}" matInput [(ngModel)]="ValueAddedTax" (ngModelChange)="OnValueAddedTaxChange()" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-radio-button [value]=3> Price Included With Tax </mat-radio-button>
+      <mat-form-field class="vat-value">
+        <input [disabled]="PriceCat!=3" pattern="[0-9]{1,5}" matInput [(ngModel)]="PriceWithTax"  (ngModelChange)="OnPriceWithTaxChange()" />
+      </mat-form-field>
+    </div>
+  </mat-radio-group>
+</div>
